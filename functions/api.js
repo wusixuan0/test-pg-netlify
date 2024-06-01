@@ -1,15 +1,14 @@
+const knex = require('knex')(require('../db/knexfile').production);
 const express = require('express');
 const serverless = require('serverless-http');
 const app = express();
 const router = express.Router();
-
+const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
-home_router.get('/', (req, res) => {
-  res.send('Hello World!');
-});
 
-program_router.get('/programs', (req, res) => {
+
+router.get('/programs', (req, res) => {
   knex('programs')
     .select('*')
     .then((users) => {
@@ -20,7 +19,6 @@ program_router.get('/programs', (req, res) => {
       return res.json({success: false, message: 'An error occurred'});
     })
 })
-app.use('/.netlify/functions/api', home_router);
-app.use('/.netlify/functions/api', program_router);
+app.use('/.netlify/functions/api', router);
 
 module.exports.handler = serverless(app);
