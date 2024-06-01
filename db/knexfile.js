@@ -5,17 +5,12 @@ module.exports = {
  
 
   production: {
-    client: 'pg',
+    client: 'postgresql',
     connection: process.env.DATABASE_URL,
-    //'postgresql://postgres:XNpExaIQaAUSbJRMmTBXNygYVBCONwOa@monorail.proxy.rlwy.net:52245/railway',
-    //process.env.DATABASE_URL,
     pool: {
       min: 2,
       max: 10
     },
-    ssl: {
-    // SSL options (e.g., SSL certificate, key, CA certificate)
-    }, 
     migrations: {
       tableName: 'knex_migrations'
     }
